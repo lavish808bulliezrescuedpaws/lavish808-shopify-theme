@@ -1,0 +1,10 @@
+{
+  "sections": {
+    "hero": { "type": "lavish-hero", "settings": {} },
+    "shop": { "type": "lavish-shop", "settings": {} },
+    "stories": { "type": "lavish-stories", "settings": {} },
+    "spike": { "type": "lavish-spike", "settings": {} },
+    "mission": { "type": "lavish-mission", "settings": {} }
+  },
+  "order": ["hero", "shop", "stories", "spike", "mission"]
+}

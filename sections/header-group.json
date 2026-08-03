@@ -1,0 +1,9 @@
+{
+  "type": "header",
+  "name": "Header group",
+  "sections": {
+    "announcement": { "type": "lavish-announcement", "settings": {} },
+    "header": { "type": "lavish-header", "settings": {} }
+  },
+  "order": ["announcement", "header"]
+}
