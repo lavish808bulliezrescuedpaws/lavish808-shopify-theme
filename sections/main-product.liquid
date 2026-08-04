@@ -1,0 +1,26 @@
+<section class="section shell product-page">
+  <div class="product-media">
+    {% if product.featured_image %}
+      {{ product.featured_image | image_url: width: 1400 | image_tag: widths: '540,800,1100,1400', alt: product.featured_image.alt | default: product.title }}
+    {% else %}
+      {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    {% endif %}
+  </div>
+  <div class="product-info">
+    <p class="eyebrow">{{ product.type | default: 'Purpose-led merchandise' }}</p>
+    <h1>{{ product.title | escape }}</h1>
+    <p class="price">{{ product.selected_or_first_available_variant.price | money }}</p>
+    {% if product.description != blank %}<div class="rte">{{ product.description }}</div>{% endif %}
+    {% form 'product', product, class: 'product-form' %}
+      <label class="field-label" for="Variant-{{ section.id }}">Choose an option</label>
+      <select id="Variant-{{ section.id }}" name="id">
+        {% for variant in product.variants %}
+          <option value="{{ variant.id }}" {% if variant == product.selected_or_first_available_variant %}selected{% endif %} {% unless variant.available %}disabled{% endunless %}>{{ variant.title }} — {{ variant.price | money }}{% unless variant.available %} — Sold out{% endunless %}</option>
+        {% endfor %}
+      </select>
+      <button class="button" type="submit" name="add" {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}>{% if product.selected_or_first_available_variant.available %}Add to cart{% else %}Coming soon{% endif %}</button>
+    {% endform %}
+    <p class="rte" style="margin-top:28px"><strong>Shop with purpose.</strong> Net merchandise proceeds support veterinary care, food, transportation, rehabilitation, and rehoming.</p>
+  </div>
+</section>
+{% schema %}{"name":"Main product","settings":[]}{% endschema %}

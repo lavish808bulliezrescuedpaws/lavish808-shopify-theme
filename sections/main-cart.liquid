@@ -1,0 +1,21 @@
+<section class="section shell">
+  <header class="page-hero"><p class="eyebrow">Your order supports rescue</p><h1 class="page-title">Your cart</h1></header>
+  {% if cart.item_count > 0 %}
+    <form action="{{ routes.cart_url }}" method="post">
+      <div class="cart-list">
+        {% for item in cart.items %}
+          <div class="cart-item">
+            <a href="{{ item.url }}">{% if item.image %}{{ item.image | image_url: width: 220 | image_tag: alt: item.title }}{% endif %}</a>
+            <div><h2 style="font-size:22px"><a href="{{ item.url }}">{{ item.product.title }}</a></h2><p class="rte">{{ item.variant.title }}</p><a class="text-link" href="{{ item.url_to_remove }}">Remove</a></div>
+            <div class="cart-item__quantity"><label class="field-label" for="Quantity-{{ forloop.index }}">Quantity</label><input id="Quantity-{{ forloop.index }}" type="number" name="updates[]" value="{{ item.quantity }}" min="0"></div>
+            <div class="cart-item__total price">{{ item.final_line_price | money }}</div>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="cart-summary"><p class="eyebrow">Subtotal</p><h2>{{ cart.total_price | money }}</h2><p class="rte">Shipping and taxes are calculated at checkout.</p><div class="cart-actions"><button class="button" type="submit" name="update">Update cart</button><button class="button" type="submit" name="checkout">Checkout</button></div></div>
+    </form>
+  {% else %}
+    <div class="empty-state"><h2>Your cart is ready for a little aloha.</h2><p class="rte">Explore merchandise inspired by second chances.</p><a class="button" href="{{ routes.root_url }}#shop">Shop the collections</a></div>
+  {% endif %}
+</section>
+{% schema %}{"name":"Main cart","settings":[]}{% endschema %}

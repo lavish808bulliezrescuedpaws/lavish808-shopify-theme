@@ -1,0 +1,14 @@
+<section class="section shell">
+  <header class="page-hero"><p class="eyebrow">Find your favorite</p><h1 class="page-title">Search</h1></header>
+  <form class="search-form" action="{{ routes.search_url }}" method="get" role="search"><input type="search" name="q" value="{{ search.terms | escape }}" placeholder="Search products and stories"><button class="button" type="submit">Search</button></form>
+  {% if search.performed %}
+    {% paginate search.results by 24 %}
+      {% if search.results_count > 0 %}
+        <p class="rte" style="margin-top:28px">{{ search.results_count }} results for “{{ search.terms | escape }}”</p>
+        <div class="catalog-grid">{% for item in search.results %}<article class="catalog-card"><a class="catalog-card__image" href="{{ item.url }}">{% if item.featured_image %}{{ item.featured_image | image_url: width: 800 | image_tag: loading: 'lazy', alt: item.title }}{% else %}{{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}{% endif %}</a><div class="catalog-card__body"><div class="catalog-card__meta">{{ item.object_type }}</div><h2><a href="{{ item.url }}">{{ item.title | escape }}</a></h2>{% if item.price %}<div class="price">{{ item.price | money }}</div>{% endif %}</div></article>{% endfor %}</div>
+        {% if paginate.pages > 1 %}<nav class="pagination" aria-label="Pagination">{{ paginate | default_pagination }}</nav>{% endif %}
+      {% else %}<div class="empty-state"><h2>No results yet.</h2><p class="rte">Try a dog’s name, “shirt,” “hat,” or “tumbler.”</p></div>{% endif %}
+    {% endpaginate %}
+  {% endif %}
+</section>
+{% schema %}{"name":"Main search","settings":[]}{% endschema %}
