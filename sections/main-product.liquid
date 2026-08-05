@@ -9,17 +9,28 @@
   <div class="product-info">
     <p class="eyebrow">{{ product.type | default: 'Purpose-led merchandise' }}</p>
     <h1>{{ product.title | escape }}</h1>
-    <p class="price">{{ product.selected_or_first_available_variant.price | money }}</p>
+    <p id="ProductPrice-{{ section.id }}" class="price" aria-live="polite">{{ product.selected_or_first_available_variant.price | money }}</p>
     {% if product.description != blank %}<div class="rte">{{ product.description }}</div>{% endif %}
     {% form 'product', product, class: 'product-form' %}
       <label class="field-label" for="Variant-{{ section.id }}">Choose an option</label>
       <select id="Variant-{{ section.id }}" name="id">
         {% for variant in product.variants %}
-          <option value="{{ variant.id }}" {% if variant == product.selected_or_first_available_variant %}selected{% endif %} {% unless variant.available %}disabled{% endunless %}>{{ variant.title }} — {{ variant.price | money }}{% unless variant.available %} — Sold out{% endunless %}</option>
+          <option value="{{ variant.id }}" data-price="{{ variant.price | money | escape }}" {% if variant == product.selected_or_first_available_variant %}selected{% endif %} {% unless variant.available %}disabled{% endunless %}>{{ variant.title }} &mdash; {{ variant.price | money }}{% unless variant.available %} &mdash; Sold out{% endunless %}</option>
         {% endfor %}
       </select>
       <button class="button" type="submit" name="add" {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}>{% if product.selected_or_first_available_variant.available %}Add to cart{% else %}Coming soon{% endif %}</button>
     {% endform %}
+    <script>
+      (() => {
+        const variantSelect = document.getElementById('Variant-{{ section.id }}');
+        const productPrice = document.getElementById('ProductPrice-{{ section.id }}');
+        if (!variantSelect || !productPrice) return;
+        variantSelect.addEventListener('change', () => {
+          const selectedVariant = variantSelect.options[variantSelect.selectedIndex];
+          if (selectedVariant && selectedVariant.dataset.price) productPrice.textContent = selectedVariant.dataset.price;
+        });
+      })();
+    </script>
     <p class="rte" style="margin-top:28px"><strong>Shop with purpose.</strong> Net merchandise proceeds support veterinary care, food, transportation, rehabilitation, and rehoming.</p>
   </div>
 </section>
