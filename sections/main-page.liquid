@@ -1,2 +1,26 @@
-<section class="section shell"><header class="page-hero"><p class="eyebrow">Lavish808Bulliez Rescued Paws</p><h1 class="page-title">{{ page.title | escape }}</h1></header><div class="rte page-copy">{{ page.content }}</div></section>
+<section class="section shell">
+  <header class="page-hero"><p class="eyebrow">Lavish808Bulliez Rescued Paws</p><h1 class="page-title">{{ page.title | escape }}</h1></header>
+  {% if page.handle == 'contact' %}
+    <div class="contact-layout">
+      <div class="rte page-copy">
+        {% if page.content != blank %}{{ page.content }}{% else %}<p>Questions about an order, a product, fostering, adoption, or supporting the rescue? Send us a message and we will respond as soon as we can.</p>{% endif %}
+      </div>
+      {% form 'contact', class: 'contact-form' %}
+        {% if form.posted_successfully? %}<p class="form-success" role="status">Mahalo. Your message has been sent.</p>{% endif %}
+        {{ form.errors | default_errors }}
+        <label for="ContactName">Name</label>
+        <input id="ContactName" type="text" name="contact[name]" value="{{ form.name | escape }}" autocomplete="name" required>
+        <label for="ContactEmail">Email</label>
+        <input id="ContactEmail" type="email" name="contact[email]" value="{{ form.email | escape }}" autocomplete="email" required>
+        <label for="ContactPhone">Phone <span>(optional)</span></label>
+        <input id="ContactPhone" type="tel" name="contact[phone]" value="{{ form.phone | escape }}" autocomplete="tel">
+        <label for="ContactMessage">Message</label>
+        <textarea id="ContactMessage" name="contact[body]" rows="7" required>{{ form.body | escape }}</textarea>
+        <button class="button" type="submit">Send message</button>
+      {% endform %}
+    </div>
+  {% else %}
+    <div class="rte page-copy">{{ page.content }}</div>
+  {% endif %}
+</section>
 {% schema %}{"name":"Main page","settings":[]}{% endschema %}
