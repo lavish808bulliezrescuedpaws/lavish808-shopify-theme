@@ -63,6 +63,39 @@ nav a { position: relative; }
 nav a:hover, .text-link:hover, .card a:hover { color: var(--coral-deep); }
 .donate-link { background: var(--coral); color: var(--white); border-radius: 999px; padding: 12px 19px; box-shadow: 0 8px 20px rgba(226, 126, 78, .25); }
 .donate-link:hover { background: var(--coral-deep); color: var(--white); }
+.mobile-actions { display: none; }
+.mobile-menu { position: relative; }
+.mobile-menu summary {
+  cursor: pointer;
+  list-style: none;
+  color: var(--ocean-deep);
+  border: 1px solid rgba(14, 92, 110, .3);
+  border-radius: 999px;
+  padding: 10px 14px;
+  font: 700 12px Figtree, Arial, sans-serif;
+}
+.mobile-menu summary::-webkit-details-marker { display: none; }
+.mobile-menu summary:focus-visible,
+.mobile-menu nav a:focus-visible,
+.mobile-cart:focus-visible,
+.donate-link:focus-visible { outline: 3px solid var(--coral); outline-offset: 3px; }
+.mobile-menu nav {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: min(280px, calc(100vw - 28px));
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  padding: 10px;
+  background: var(--white);
+  border: 1px solid var(--sand-deep);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+}
+.mobile-menu nav a { padding: 12px 10px; border-radius: 9px; }
+.mobile-menu nav a:hover { background: var(--sand); }
+.mobile-cart { color: var(--ocean-deep); font: 700 12px Figtree, Arial, sans-serif; }
 
 .hero {
   display: grid;
@@ -131,7 +164,8 @@ h2 { color: var(--ocean-deep); font-size: clamp(42px, 5vw, 66px); line-height: 1
 .copyright { width: min(1210px, calc(100% - 48px)); margin: 55px auto 0; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, .16); color: rgba(255, 255, 255, .52); font: 12px Figtree, Arial, sans-serif; }
 
 @media (max-width: 900px) {
-  nav a:not(.donate-link) { display: none; }
+  .desktop-nav { display: none; }
+  .mobile-actions { display: flex; align-items: center; gap: 12px; }
   .hero, .spike { grid-template-columns: 1fr; }
   .hero { padding-top: 54px; }
   .hero-media { order: -1; }
@@ -141,8 +175,13 @@ h2 { color: var(--ocean-deep); font-size: clamp(42px, 5vw, 66px); line-height: 1
 @media (max-width: 600px) {
   .shell { width: min(100% - 28px, 1210px); }
   .site-header { padding-block: 14px; }
-  .brand span { font-size: 21px; }
-  .donate-link { padding: 10px 14px; }
+  .site-header { gap: 10px; }
+  .brand span { font-size: 19px; }
+  .brand small { font-size: 7px; letter-spacing: .16em; }
+  .mobile-actions { gap: 7px; }
+  .mobile-menu summary { padding: 9px 10px; }
+  .mobile-cart { font-size: 11px; }
+  .donate-link { padding: 10px 12px; }
   .product-grid, .story-grid, .impact-grid, .footer-grid { grid-template-columns: 1fr; }
   h1 { font-size: 52px; }
   .section { padding: 74px 0; }

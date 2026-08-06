@@ -1,15 +1,32 @@
 <div class="site-header-wrap">
   <header class="site-header shell">
     <a class="brand" href="{{ routes.root_url }}"><span>Lavish 808 Bulliez</span><small>RESCUED PAWS · SAVING SINCE 2024</small></a>
-    <nav aria-label="Main navigation">
+    <nav class="desktop-nav" aria-label="Main navigation">
       <a href="{{ routes.root_url }}#shop">Shop</a>
       <a href="{{ routes.root_url }}#spike">Team Spike</a>
       <a href="{{ routes.root_url }}#stories">Stories</a>
       <a href="{{ routes.root_url }}#mission">Our Mission</a>
       <a href="{{ routes.search_url }}">Search</a>
+      <a href="https://lavish808bulliezrescuedpaws.org/">Rescue Site</a>
       <a href="{{ routes.cart_url }}">Cart · {{ cart.item_count }}</a>
       <a class="donate-link" href="https://www.zeffy.com/en-US/donation-form/donate-to-change-lives-17387">Donate</a>
     </nav>
+    <div class="mobile-actions">
+      <details class="mobile-menu">
+        <summary aria-label="Open navigation menu">Menu</summary>
+        <nav aria-label="Mobile navigation">
+          <a href="{{ routes.root_url }}#shop">Shop available products</a>
+          <a href="{{ routes.root_url }}#spike">Team Spike</a>
+          <a href="{{ routes.root_url }}#stories">Rescue stories</a>
+          <a href="{{ routes.root_url }}#mission">Our mission</a>
+          <a href="{{ routes.search_url }}">Search</a>
+          <a href="{{ routes.cart_url }}">Cart &middot; {{ cart.item_count }}</a>
+          <a href="https://lavish808bulliezrescuedpaws.org/">Rescue organization site</a>
+        </nav>
+      </details>
+      <a class="mobile-cart" href="{{ routes.cart_url }}" aria-label="Cart with {{ cart.item_count }} items">Cart &middot; {{ cart.item_count }}</a>
+      <a class="donate-link" href="https://www.zeffy.com/en-US/donation-form/donate-to-change-lives-17387">Donate</a>
+    </div>
   </header>
 </div>
 {% schema %}{"name":"Lavish header","settings":[]}{% endschema %}
